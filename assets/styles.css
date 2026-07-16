@@ -146,28 +146,29 @@ h1 {
   position: relative;
   min-height: 360px;
   overflow: hidden;
-  background: #534b44 var(--tile-image) center / cover no-repeat;
+  background: #534b44;
   text-decoration: none;
   isolation: isolate;
+}
+.tile-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .7s cubic-bezier(.2,.7,.2,1);
 }
 .tile-tall { grid-row: span 2; }
 .tile-overlay {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
   background: linear-gradient(180deg, rgba(17,15,13,.05), rgba(17,15,13,.75));
   transition: background .35s ease;
 }
-.gallery-tile::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background: var(--tile-image) center / cover no-repeat;
-  transition: transform .7s cubic-bezier(.2,.7,.2,1);
-}
-.gallery-tile:hover::before,
-.gallery-tile:focus-visible::before { transform: scale(1.045); }
+.gallery-tile:hover .tile-image,
+.gallery-tile:focus-visible .tile-image { transform: scale(1.045); }
 .gallery-tile:hover .tile-overlay,
 .gallery-tile:focus-visible .tile-overlay {
   background: linear-gradient(180deg, rgba(17,15,13,.02), rgba(17,15,13,.58));
@@ -175,6 +176,7 @@ h1 {
 .gallery-tile:focus-visible { outline: 3px solid #f4d7ae; outline-offset: 4px; }
 .tile-content {
   position: absolute;
+  z-index: 2;
   inset: auto clamp(1.4rem, 3vw, 3rem) clamp(1.4rem, 3vw, 3rem);
   display: grid;
   gap: .45rem;
